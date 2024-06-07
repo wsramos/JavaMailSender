@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: JavaMailSender
+  mail:
+    default-encoding: UTF-8
+    host: email-smtp.us-west-2.amazonaws.com
+    username: username
+    password: password
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          port: 25
+          auth: true
+          starttls:
+            enable: true
+            required: true
