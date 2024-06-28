@@ -34,47 +34,62 @@ public class SendEmailAdapter implements SendEmailPort {
         this.javaMailSender = javaMailSender;
         this.cfg = FreeMarkerConfiguration.getInstance();
     }
-    @Override
-    public void sendSimpleEmail(Email email) throws TemplateException, IOException {
+
+    public void sendSimpleEmail(Email email) {
 
         mailMessage.setFrom(email.getFrom());
         mailMessage.setTo(email.getTo());
         mailMessage.setSubject(email.getSubject());
-        mailMessage.setText(getBodyFromTemplate(email.getBody()));
+        try{
+            mailMessage.setText(getBodyFromTemplate(email.getBody()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         javaMailSender.send(mailMessage);
     }
 
     @Override
-    public void sendEmailMessage(Email email) throws MessagingException, TemplateException, IOException {
+    public void sendEmailMessage(Email email) {
         MimeMessage message = javaMailSender.createMimeMessage();
 
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        try{
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setFrom(email.getFrom());
-        helper.setTo(email.getTo());
-        helper.setSubject(email.getSubject());
-        helper.setText(getBodyFromTemplate(email.getBody()), true);
+            helper.setFrom(email.getFrom());
+            helper.setTo(email.getTo());
+            helper.setSubject(email.getSubject());
+            helper.setText(getBodyFromTemplate(email.getBody()), true);
 
-        if(Objects.nonNull(email.getAttachments())){
-            for(Attachment attachment : email.getAttachments()){
-                helper.addAttachment(attachment.getName(), new FileSystemResource(new File(attachment.getAttPath())));
+            if(Objects.nonNull(email.getAttachments())){
+                for(Attachment attachment : email.getAttachments()){
+                    helper.addAttachment(attachment.getName(), new FileSystemResource(new File(attachment.getAttPath())));
+                }
             }
+        } catch (MessagingException e) {
+            e.printStackTrace();
         }
+
 
         javaMailSender.send(message);
     }
 
     @Override
-    public String getBodyFromTemplate(Body body) throws IOException, TemplateException {
+    public String getBodyFromTemplate(Body body) {
         Map<String, Object> root = new HashMap<>();
 
         StringWriter result = new StringWriter(1024);
 
         root.put("body", body);
 
-        Template template = cfg.getCfg().getTemplate(body.getTemplateName());
-        template.process(root, result);
+        try{
+            Template template = cfg.getCfg().getTemplate(body.getTemplateName());
+            template.process(root, result);
+        } catch (IOException | TemplateException e) {
+            e.printStackTrace();
+        }
+
 
         return result.toString();
     }

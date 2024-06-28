@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.0</version>
+		<version>3.3.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.loriens</groupId>
@@ -14,7 +14,7 @@
 	<name>JavaMailSender</name>
 	<description>Projeto base para envio de emails com Spring Boot</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>22</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -60,12 +60,6 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>1.5.5.Final</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
-		<dependency>
-			<groupId>com.google.api-client</groupId>
-			<artifactId>google-api-client</artifactId>
-			<version>2.6.0</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.oauth-client/google-oauth-client-jetty -->
 		<dependency>
 			<groupId>com.google.oauth-client</groupId>
@@ -76,9 +70,14 @@
 		<dependency>
 			<groupId>com.google.apis</groupId>
 			<artifactId>google-api-services-gmail</artifactId>
-			<version>v1-rev110-1.25.0</version>
+			<version>v1-rev20240520-2.0.0</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/org.snakeyaml/snakeyaml-engine -->
+		<dependency>
+			<groupId>org.snakeyaml</groupId>
+			<artifactId>snakeyaml-engine</artifactId>
+			<version>2.7</version>
+		</dependency>
 	</dependencies>
 
 	<build>

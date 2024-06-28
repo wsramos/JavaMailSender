@@ -8,7 +8,6 @@ import jakarta.mail.MessagingException;
 import java.io.IOException;
 
 public interface SendEmailPort {
-    void sendSimpleEmail(Email email) throws TemplateException, IOException;
-    void sendEmailMessage(Email email) throws MessagingException, TemplateException, IOException;
-    String getBodyFromTemplate(Body body) throws IOException, TemplateException;
+    void sendEmailMessage(Email email);
+    String getBodyFromTemplate(Body body);
 }

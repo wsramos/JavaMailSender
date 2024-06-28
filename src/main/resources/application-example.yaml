@@ -1,0 +1,6 @@
+spring:
+  application-name: "JavaMailSender"
+
+gmail:
+    credential-file-path: ${CREDENTIAL_FILE_PATH}
+    tokens-directory-path: ${TOKENS_DIRECTORY_PATH}
